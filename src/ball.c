@@ -19,7 +19,7 @@ void ball_init()
     b.y = SCREEN_HEIGHT / 2;
     b.accumX = 0.0f;
     b.accumY = 0.0f;
-    b.velX = 1.0f;
+    b.velX = 0.0f;
     b.velY = 5.5f;
 }
 
@@ -72,12 +72,40 @@ void ball_update(float deltaTime)
         b.velY = -b.velY;
     }
     // Paddle Collision
-    if (b.velY > 0 && b.y >= py - 1)
+    // if (b.velY > 0 && b.y >= py - 1)
+    // {
+    //     if (b.x >= px && b.x < px + pw)
+    //     {
+    //         if (b.x > px + pw / 2)
+    //         {
+    //             b.y = py - 1;
+    //             b.velY = -b.velY;
+    //             b.velX = +2.0;
+    //         }
+    //         if (b.x < px - pw / 2)
+    //         {
+    //             b.y = py - 1;
+    //             b.velY = -b.velY;
+    //             b.velY = -2.0;
+    //         }
+    //     }
+    // }
+    if (b.velY > 0 && b.y == py - 1)
     {
         if (b.x >= px && b.x < px + pw)
         {
-            b.y = py - 1;
-            b.velY = -b.velY;
+            b.y = py - 1;     // clamp above paddle
+            b.velY = -b.velY; // bounce up
+
+            // adjust horizontal velocity based on hit position
+            float hitPos = (float)(b.x - px) / pw; // 0.0 = left, 0.5 = middle, 1.0 = right
+
+            if (hitPos < 0.33f)
+                b.velX = -2.0f; // left third
+            else if (hitPos > 0.66f)
+                b.velX = 2.0f; // right third
+            else
+                b.velX = 0.0f; // middle
         }
     }
 }
