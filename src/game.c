@@ -47,6 +47,7 @@ void game()
     bool isRunning = true;
     paddle_init();
     ball_init();
+    bricks_init();
 
     float lastTime = (float)clock() / CLOCKS_PER_SEC;
     float deltaTime;
@@ -61,9 +62,11 @@ void game()
 
         paddle_update(deltaTime);
         ball_update(deltaTime);
+        bricks_update(deltaTime);
         clearScreen();
         ball_render(screen);
         paddle_render(screen);
+        bricks_render(screen);
         render();
     }
 }

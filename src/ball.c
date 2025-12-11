@@ -125,3 +125,35 @@ void ball_render(char screen[SCREEN_HEIGHT][SCREEN_WIDTH])
         }
     }
 }
+
+// Getter for Ball positions
+
+int ball_getX()
+{
+    return b.x;
+}
+
+int ball_getY()
+{
+    return b.y;
+}
+
+int ball_getVelX()
+{
+    return b.velX;
+}
+
+int ball_getVelY()
+{
+    return b.velY;
+}
+
+void invertVelX()
+{
+    b.velX = -b.velX;
+}
+
+void invertVelY()
+{
+    b.velY = -b.velY;
+}
